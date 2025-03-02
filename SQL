@@ -1,0 +1,81 @@
+-- SQL Schema for Hospital Analysis Project
+
+-- Patients Table
+CREATE TABLE Patients (
+    PatientID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Gender VARCHAR(10),
+    BirthDate DATE,
+    PhoneNumber VARCHAR(15),
+    Address VARCHAR(100)
+);
+
+-- Staff Table
+CREATE TABLE Staff (
+    StaffID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Position VARCHAR(50),
+    DepartmentID INT,
+    HireDate DATE,
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);
+
+-- Department Table
+CREATE TABLE Department (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50),
+    Location VARCHAR(50)
+);
+
+-- Diagnosis Table
+CREATE TABLE Diagnosis (
+    DiagnosisID INT PRIMARY KEY,
+    PatientID INT,
+    DiagnosisCode VARCHAR(20),
+    DiagnosisDate DATE,
+    Description VARCHAR(100),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+-- Complaints Table
+CREATE TABLE Complaints (
+    ComplaintID INT PRIMARY KEY,
+    PatientID INT,
+    ComplaintDate DATE,
+    Description VARCHAR(200),
+    Status VARCHAR(20),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+-- Financial Table
+CREATE TABLE Financial (
+    TransactionID INT PRIMARY KEY,
+    PatientID INT,
+    Amount DECIMAL(10, 2),
+    TransactionDate DATE,
+    PaymentMethod VARCHAR(20),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+-- Visits Table
+CREATE TABLE Visits (
+    VisitID INT PRIMARY KEY,
+    PatientID INT,
+    DepartmentID INT,
+    VisitDate DATE,
+    Reason VARCHAR(100),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);
+
+-- Equipment Table
+CREATE TABLE Equipment (
+    EquipmentID INT PRIMARY KEY,
+    DepartmentID INT,
+    EquipmentName VARCHAR(50),
+    PurchaseDate DATE,
+    Status VARCHAR(20),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);
