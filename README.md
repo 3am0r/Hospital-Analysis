@@ -27,13 +27,26 @@ This **Hospital Analysis Project** leverages **Power BI**, **SQL**, and **Python
 
 ## 📈 Power BI Visualizations
 ### View Tabs
-- 🏠 Homepage
-- 🏥 Department
-- 👩‍⚕️ Patients
-- 👨‍💼 Staff
-- 💉 Diagnosis
-- ⚠️ Complaints
-- 💰 Financial
+#### 🏠 Homepage
+![Homepage](Images/Homepage.png)
+
+#### 🏥 Department
+![Department](Images/Department.png)
+
+#### 👩‍⚕️ Patients
+![Patients](Images/Patient-visits.png)
+
+#### 👨‍💼 Staff
+![Staff](Images/Staff.png)
+
+#### 💉 Diagnosis
+![Diagnosis](Images/Diagnosis.png)
+
+#### ⚠️ Complaints
+![Complaints](Images/Complaints.png)
+
+#### 💰 Financial
+![Financial](Images/Financial.png)
 
 ### KPIs
 - Total Patients Served
