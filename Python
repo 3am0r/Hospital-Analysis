@@ -1,0 +1,49 @@
+```python
+# Import Libraries
+import pandas as pd
+import numpy as np
+
+# Load Datasets
+patients = pd.read_csv('Patients.csv')
+staff = pd.read_csv('Staff.csv')
+department = pd.read_csv('Department.csv')
+complaints = pd.read_csv('Complaints.csv')
+diagnosis = pd.read_csv('Diagnosis_code.csv')
+visits = pd.read_csv('Visits.csv')
+equipment = pd.read_csv('Equipment.csv')
+financial = pd.read_csv('Financial.csv')
+
+# Data Cleaning
+patients.drop_duplicates(inplace=True)
+staff.drop_duplicates(inplace=True)
+
+# Fill Missing Values
+patients.fillna({'Age': patients['Age'].median()}, inplace=True)
+complaints.fillna('No Complaint', inplace=True)
+
+# Merge Data
+visits_patients = pd.merge(visits, patients, on='Patient_ID', how='left')
+visits_full = pd.merge(visits_patients, diagnosis, on='Diagnosis_Code', how='left')
+
+# Total Patients by Department
+patient_department = visits_full.groupby('Department_ID')['Patient_ID'].nunique().reset_index()
+patient_department.columns = ['Department_ID', 'Total_Patients']
+
+# Top Revenue Departments
+revenue_department = financial.groupby('Department_ID')['Amount'].sum().reset_index()
+revenue_department.columns = ['Department_ID', 'Total_Revenue']
+
+# Complaints Analysis
+complaints_count = complaints.groupby('Complaint_Type').size().reset_index(name='Count')
+
+# Equipment Utilization
+equipment_utilization = equipment.groupby('Department_ID')['Utilization'].mean().reset_index()
+
+# Save Cleaned Data
+patients.to_csv('Cleaned_Patients.csv', index=False)
+visits_full.to_csv('Cleaned_Visits.csv', index=False)
+financial.to_csv('Cleaned_Financial.csv', index=False)
+
+print("Data Cleaning Completed Successfully!")
+```
+
